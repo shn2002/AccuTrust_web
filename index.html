@@ -14,7 +14,27 @@
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             var scrollImage = document.getElementById('logo');
+            const smallLogoPath = 'assets/img/navbar-logo-small.png';  // 更换成小 logo 的路径
 
+            function toggleLogo() {
+                if (window.innerWidth < 1000) {  // 576 是 Bootstrap 的 sm 尺寸
+                    scrollImage.src = smallLogoPath;
+                    scrollImage.style.width = '2.5rem';  // 50 / 16 = 2.5
+                    scrollImage.style.height = '2rem'; // 50 / 16 = 2.5
+                } else {
+                    scrollImage.src = 'assets/img/navbar-logo.png';
+                    scrollImage.style.width = '';  // 恢复原始大小
+                    scrollImage.style.height = ''; // 恢复原始大小
+                }
+            }
+
+            // 页面加载时执行一次
+            toggleLogo();
+
+            // 窗口大小变化时执行
+            window.addEventListener('resize', toggleLogo);
+
+            // 监听滚动事件
             window.addEventListener('scroll', function () {
                 if (window.scrollY > 0) {
                     // 滚动时隐藏图片
